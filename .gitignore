@@ -1,0 +1,56 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+.venv.bak/
+
+# VS Code settings
+.vscode/
+
+# macOS metadata
+.DS_Store
+
+# Pytest and other testing tools
+.cache/
+coverage.*
+.pytest_cache/
+htmlcov/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# MyPy, Pylint, Bandit, etc.
+.mypy_cache/
+.pylint.d/
+.bandit/
+
+# Log and temp files
+*.log
+*.tmp
+*.bak
+
+# Database files (if SQLite used)
+*.sqlite3
+*.db
+
+# Env files
+.env
+.env.*
+
+# IDEs
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
