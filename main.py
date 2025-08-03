@@ -6,7 +6,7 @@ from flask import Flask, render_template
 
 def main():
     app=Flask(__name__,template_folder='templates')
-#     shop=Trandyol()
+    # shop=Trandyol()
 #     shop.get_items('shoes','https://www.trendyol.com/kadin-ayakkabi-x-g1-c114')
 #     shop.get_items('bag','https://www.trendyol.com/kadin-canta-x-g1-c117')
 #     shop.get_items('bag','https://www.trendyol.com/erkek-canta-x-g2-c117')
