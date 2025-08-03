@@ -1,4 +1,6 @@
-from flask import render_template, request
+import json
+
+from flask import render_template, request, Response
 from trandyol import get_item
 
 
@@ -40,7 +42,11 @@ def all_routes(app,db):
         if request.method=='POST':
             url=request.form.get('product_url')
             elements=get_item(url)
-            print(elements)
-            return render_template('search.html',product_info=elements)
+            response=Response(
+                json.dumps(elements,indent=4),
+                mimetype='application/json'
+            )
+            response.headers['Content-Disposition'] = 'attachment; filename=data.json'
+            return response
 
         return render_template('search.html')

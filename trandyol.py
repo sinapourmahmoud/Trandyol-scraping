@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.firefox.options import Options
 class Trandyol(webdriver.Firefox):
     items=[]
     def __init__(self):
@@ -35,26 +36,25 @@ class Trandyol(webdriver.Firefox):
 
 
 def get_item(url):
-        web_driver=webdriver.Firefox()
+        firefox_options = Options()
+        firefox_options.headless = True
+        web_driver=webdriver.Firefox(options=firefox_options)
         attribute_items=[]
 
 
-        try:
-            web_driver.get(url)
-            product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
-            rate = web_driver.find_element(By.CSS_SELECTOR, '.reviews-summary-average-rating').text
-            price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
-            items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
-            lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
-            options = []
-            for li in lis:
-                options.append(li.text)
-            for item in items:
-                attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
-                                        'value': item.find_element(By.CSS_SELECTOR, '.value').text})
-            return {'title': product_title , 'price': price, 'rate': rate, 'attribute_items': attribute_items,
-                    'options': options}
-        except:
-            ...
+
+        web_driver.get(url)
+        product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
+        price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
+        items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
+        lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
+        options = []
+        for li in lis:
+            options.append(li.text)
+        for item in items:
+            attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
+                                    'value': item.find_element(By.CSS_SELECTOR, '.value').text})
+        return {'title': product_title , 'price': price, 'attribute_items': attribute_items,
+                'options': options}
 
 
