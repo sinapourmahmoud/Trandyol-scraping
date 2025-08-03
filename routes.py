@@ -15,10 +15,10 @@ def all_routes(app,db):
             min_rate = request.form.get('min_rate', type=float)
             max_rate = request.form.get('max_rate', type=float)
             if title:
-                sql += ' AND name LIKE ?'
+                sql += ' AND category LIKE ?'
                 params.append(f"%{title}%")
             if categories:
-                sql += f" AND category IN ({','.join(['?'] * len(categories))})"
+                sql += f" AND product IN ({','.join(['?'] * len(categories))})"
                 params.extend(categories)
             if min_price and max_price:
                 sql += ' AND price >=? AND price <=?'
@@ -31,6 +31,7 @@ def all_routes(app,db):
             sql+=' ORDER BY price ASC, rate ASC'
             db.execute(sql, params)
             results = db.fetchall()
+            print(results)
             return render_template('index.html',products=results,title=title,min_price=min_price,max_price=max_price,min_rate=min_rate,max_rate=max_rate)
 
         return render_template('index.html',products=[],title='',min_price='',max_price='',min_rate='',max_rate='')

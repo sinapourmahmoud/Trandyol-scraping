@@ -39,18 +39,22 @@ def get_item(url):
         attribute_items=[]
 
 
-        web_driver.get(url)
-        product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
-        rate = web_driver.find_element(By.CSS_SELECTOR, '.reviews-summary-average-rating').text
-        price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
-        items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
-        lis=web_driver.find_elements(By.CSS_SELECTOR,'.content-description-item-description')
-        options=[]
-        for li in lis:
-            options.append(li.text)
-        for item in items:
-            attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
-                                    'value': item.find_element(By.CSS_SELECTOR, '.value').text})
-        return{'title': product_title, 'price': price, 'rate': rate, 'attribute_items': attribute_items,'options':options}
+        try:
+            web_driver.get(url)
+            product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
+            rate = web_driver.find_element(By.CSS_SELECTOR, '.reviews-summary-average-rating').text
+            price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
+            items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
+            lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
+            options = []
+            for li in lis:
+                options.append(li.text)
+            for item in items:
+                attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
+                                        'value': item.find_element(By.CSS_SELECTOR, '.value').text})
+            return {'title': product_title , 'price': price, 'rate': rate, 'attribute_items': attribute_items,
+                    'options': options}
+        except:
+            ...
 
 
