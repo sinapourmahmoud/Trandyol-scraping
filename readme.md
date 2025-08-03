@@ -44,6 +44,7 @@ trandyol-bot/
 ├── run.py                 # Application entry point
 ├── test.py                # Tests
 ├── trandyol.py            # Scraper logic for Trendyol
+├── requirements.txt       # Dependencies for setup
 ```
 
 ---
@@ -74,7 +75,7 @@ pip install -r requirements.txt
 > 📝 If `requirements.txt` doesn't exist, install manually:
 
 ```bash
-pip install flask selenium
+pip install flask selenium python-dotenv
 ```
 
 ### 4. Run the App
@@ -125,6 +126,40 @@ FLASK_APP=run.py
 FLASK_ENV=development
 SECRET_TOKEN=your_secret_token_here  # Used for secure Flask session or API access
 ```
+
+---
+
+## ☁️ GitHub Setup (for other users)
+
+If someone (like your friend) wants to run this project on their own system:
+
+1. Clone the repo:
+
+   ```bash
+   git clone https://github.com/yourusername/trandyol-bot.git
+   cd trandyol-bot
+   ```
+
+2. Create a virtual environment and activate it:
+
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate  # macOS/Linux
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Create a `.env` file and define required variables as shown above.
+
+5. Run the Flask app:
+
+   ```bash
+   python run.py
+   ```
 
 ---
 

@@ -44,16 +44,34 @@ def get_item(url):
 
 
         web_driver.get(url)
-        product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
-        price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
-        items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
-        lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
+        try:
+            product_title = web_driver.find_element(By.CSS_SELECTOR, '.product-title').text
+        except:
+            product_title='not found'
+        try:
+            price = web_driver.find_element(By.CSS_SELECTOR, '.discounted').text
+        except:
+            price='not found'
+        try:
+            items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
+        except:
+            items = []
+
+        try:
+            lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
+        except:
+            lis = []
+
+
         options = []
         for li in lis:
             options.append(li.text)
-        for item in items:
-            attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
-                                    'value': item.find_element(By.CSS_SELECTOR, '.value').text})
+        try:
+            for item in items:
+                attribute_items.append({"name": item.find_element(By.CSS_SELECTOR, '.name').text,
+                                        'value': item.find_element(By.CSS_SELECTOR, '.value').text})
+        except:
+            attribute_items = []
         return {'title': product_title , 'price': price, 'attribute_items': attribute_items,
                 'options': options}
 
