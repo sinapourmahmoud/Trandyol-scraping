@@ -1,9 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
+from webdriver_manager.firefox import GeckoDriverManager
+from selenium.webdriver.firefox.service import Service
 class Trandyol(webdriver.Firefox):
     items=[]
     def __init__(self):
@@ -35,10 +34,20 @@ class Trandyol(webdriver.Firefox):
             count+=1
 
 
+
+def create_headless_firefox():
+    options = Options()
+    options.add_argument('--headless')
+    options.add_argument('--width=1920')
+    options.add_argument('--height=1080')
+
+    service = Service(executable_path=GeckoDriverManager().install())
+
+    driver = webdriver.Firefox(service=service, options=options)
+    return driver
+
 def get_item(url):
-        firefox_options = Options()
-        firefox_options.headless = True
-        web_driver=webdriver.Firefox(options=firefox_options)
+        web_driver=create_headless_firefox()
         attribute_items=[]
 
 
@@ -55,12 +64,12 @@ def get_item(url):
         try:
             items = web_driver.find_elements(By.CSS_SELECTOR, '.attribute-item')
         except:
-            items = []
+            items = 'no atribute items found'
 
         try:
             lis = web_driver.find_elements(By.CSS_SELECTOR, '.content-description-item-description')
         except:
-            lis = []
+            lis = 'no description found'
 
 
         options = []
@@ -74,5 +83,6 @@ def get_item(url):
             attribute_items = []
         return {'title': product_title , 'price': price, 'attribute_items': attribute_items,
                 'options': options}
+
 
 

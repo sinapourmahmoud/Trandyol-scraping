@@ -42,11 +42,6 @@ def all_routes(app,db):
         if request.method=='POST':
             url=request.form.get('product_url')
             elements=get_item(url)
-            response=Response(
-                json.dumps(elements,indent=4),
-                mimetype='application/json'
-            )
-            response.headers['Content-Disposition'] = 'attachment; filename=data.json'
-            return response
+            return render_template('search.html',json_file=elements)
 
         return render_template('search.html')
